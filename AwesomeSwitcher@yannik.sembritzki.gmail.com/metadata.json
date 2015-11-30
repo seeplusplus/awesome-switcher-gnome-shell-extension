@@ -1,0 +1,17 @@
+{
+ "uuid": "awesome-switcher@yannik.sembritzki.gmail.com",
+ "name": "AwesomeSwitcher",
+ "description": "Alternate-Tab Window Switcher with many improved features (grid layout, window previews).",
+ "shell-version": [
+     "3.4",
+     "3.6",
+     "3.8",
+     "3.10",
+     "3.12",
+     "3.14",
+     "3.16",
+     "3.18"
+ ],
+ "url": "https://github.com/Yannik/awesome-switcher-gnome-shell-extension"
+}
+
