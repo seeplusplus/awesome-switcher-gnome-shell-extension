@@ -253,7 +253,7 @@ function enable() {
         box.y2 -= this._label.height + spacing;
         SwitcherPopup.SwitcherList.prototype._allocateTop.call(this, actor, box, flags);
 
-   };
+    };
 
     injections['SwitcherPopup.SwitcherList._allocateTop'] = SwitcherPopup.SwitcherList.prototype._allocateTop;
     SwitcherPopup.SwitcherList.prototype._allocateTop = function(actor, box, flags) {
@@ -412,10 +412,10 @@ function enable() {
             this._select(this._previousRow());
             return Clutter.EVENT_STOP;
         } else if (keysym == Clutter.KEY_Down) {
-          this._select(this._nextRow());
+            this._select(this._nextRow());
 
-          global.log("Press down key");
-          return Clutter.EVENT_STOP;
+            global.log("Press down key");
+            return Clutter.EVENT_STOP;
         }
         return injections['WindowSwitcherPopup._keyPressHandler'].call(this, keysym, action);
     };
@@ -427,48 +427,48 @@ function enable() {
     };
 
     AltTab.WindowSwitcherPopup.prototype._nextRow = function() {
-      let rows = Math.ceil(this._items.length / this._itemsPerRow());
-      let currentRow = Math.ceil((this._selectedIndex + 1) / this._itemsPerRow());
-      global.log("================currentRow: " + currentRow + " rows: " + rows);
-      if (this._selectedIndex + this._itemsPerRow() > (this._items.length - 1) && currentRow < rows) {
-        return this._items.length - 1;
-      }
-      if (this._selectedIndex + this._itemsPerRow() > this._items.length) {
-         return 0;
-      }
-      return SwitcherPopup.mod(this._selectedIndex + this._itemsPerRow(), this._items.length);
+        let rows = Math.ceil(this._items.length / this._itemsPerRow());
+        let currentRow = Math.ceil((this._selectedIndex + 1) / this._itemsPerRow());
+        global.log("================currentRow: " + currentRow + " rows: " + rows);
+        if (this._selectedIndex + this._itemsPerRow() > (this._items.length - 1) && currentRow < rows) {
+            return this._items.length - 1;
+        }
+        if (this._selectedIndex + this._itemsPerRow() > this._items.length) {
+            return 0;
+        }
+        return SwitcherPopup.mod(this._selectedIndex + this._itemsPerRow(), this._items.length);
     };
 
     AltTab.WindowSwitcherPopup.prototype._previousRow = function() {
-      return SwitcherPopup.mod(this._selectedIndex - this._itemsPerRow(), this._items.length);
+        return SwitcherPopup.mod(this._selectedIndex - this._itemsPerRow(), this._items.length);
     };
 
     SwitcherPopup.SwitcherList.prototype.visibleRows = function() {
-      return Math.min(Math.ceil(this._items.length / this._itemsPerRow()), AltTab.maxVisibleRows());
+        return Math.min(Math.ceil(this._items.length / this._itemsPerRow()), AltTab.maxVisibleRows());
     };
 
     AltTab.maxVisibleRows = function() {
-      return 3;
+        return 3;
     };
 
     AltTab.itemsPerRow = function() {
-      let disableRows = false;
-      if (disableRows) {
-        return 9999;
-      }
-      return AltTab.maxItemsPerRow();
+        let disableRows = false;
+        if (disableRows) {
+            return 9999;
+        }
+        return AltTab.maxItemsPerRow();
     };
 
     AltTab.maxItemsPerRow = function() {
-      return 6;
+        return 6;
     };
 
     AltTab.WindowList.prototype._itemsPerRow = function() {
-      return AltTab.itemsPerRow();
+        return AltTab.itemsPerRow();
     };
 
     AltTab.WindowSwitcherPopup.prototype._itemsPerRow = function() {
-      return AltTab.itemsPerRow();
+        return AltTab.itemsPerRow();
     };
 // Vererbung: 
 // switcherPopup.SwitcherPopup -> [altTab.AppSwitcherPopup, altTab.WindowSwitcherPopup]
