@@ -38,12 +38,6 @@ const AppIconMode = {
 
 let injections = {};
 
-
-function setKeybinding(name, func) {
-    Main.wm.setCustomKeybindingHandler(name, Shell.ActionMode.NORMAL, func);
-}
-
-
 function init(metadata) {
 }
 
@@ -61,26 +55,7 @@ function enable() {
     */
     // to stop: pkill nemo
 
-    injections['_keyPressHandler'] = AltTab.WindowSwitcherPopup.prototype._keyPressHandler;
-    AltTab.WindowSwitcherPopup.prototype._keyPressHandler = function(keysym, action) {
-        switch(action) {
-            case Meta.KeyBindingAction.SWITCH_APPLICATIONS:
-            case Meta.KeyBindingAction.SWITCH_GROUP:
-                action = Meta.KeyBindingAction.SWITCH_WINDOWS;
-                break;
-            case Meta.KeyBindingAction.SWITCH_APPLICATIONS_BACKWARD:
-            case Meta.KeyBindingAction.SWITCH_GROUP_BACKWARD:
-                action = Meta.KeyBindingAction.SWITCH_WINDOWS_BACKWARD;
-                break;
-        }
-        return injections['_keyPressHandler'].call(this, keysym, action);
-    };
-
-    setKeybinding('switch-applications', Lang.bind(Main.wm, Main.wm._startWindowSwitcher));
-    setKeybinding('switch-group', Lang.bind(Main.wm, Main.wm._startWindowSwitcher));
-    setKeybinding('switch-applications-backward', Lang.bind(Main.wm, Main.wm._startWindowSwitcher));
-    setKeybinding('switch-group-backward', Lang.bind(Main.wm, Main.wm._startWindowSwitcher));
-
+    injections['AltTab.WindowIcon._init'] = AltTab.WindowIcon.prototype['_init'];
     AltTab.WindowIcon.prototype['_init'] = function(window, mode) {
         this.window = window;
 
@@ -132,8 +107,8 @@ function enable() {
         this._icon.set_size(size * scaleFactor, size * scaleFactor);
     };
 
-
-      SwitcherPopup.SwitcherList.prototype['_allocate'] = function (actor, box, flags) {
+    injections['SwitcherPopup.SwitcherList._allocate'] = SwitcherPopup.SwitcherList.prototype['_allocate'];
+    SwitcherPopup.SwitcherList.prototype['_allocate'] = function (actor, box, flags) {
         // this is the height of the total popup. the default height with 2x scaling is 336
         // 
         let childHeight = box.y2 - box.y1;
@@ -214,7 +189,7 @@ function enable() {
         }
     };
 
-
+    injections['SwitcherPopup.SwitcherList._getPreferredHeight'] = SwitcherPopup.SwitcherList.prototype['_getPreferredHeight'];
     SwitcherPopup.SwitcherList.prototype['_getPreferredHeight'] = function (actor, forWidth, alloc) {
         let maxChildMin = 0;
         let maxChildNat = 0;
@@ -262,8 +237,8 @@ function enable() {
         //global.log("[WindowList._getPreferredHeight] spacing: " + spacing + " labelMin: " + labelMin + " labelNat: " + labelNat + " alloc.min_size: " + alloc.min_size + " alloc.natural_size: " + alloc.natural_size);
     };
 
-
-   AltTab.WindowList.prototype._allocateTop = function(actor, box, flags) {
+    injections['AltTab.WindowList._allocateTop'] = AltTab.WindowList.prototype._allocateTop;
+    AltTab.WindowList.prototype._allocateTop = function(actor, box, flags) {
         let childBox = new Clutter.ActorBox();
         // position on the same space on x-achsis
         childBox.x1 = box.x1;
@@ -280,7 +255,8 @@ function enable() {
 
    };
 
-   SwitcherPopup.SwitcherList.prototype._allocateTop = function(actor, box, flags) {
+    injections['SwitcherPopup.SwitcherList._allocateTop'] = SwitcherPopup.SwitcherList.prototype._allocateTop;
+    SwitcherPopup.SwitcherList.prototype._allocateTop = function(actor, box, flags) {
         let leftPadding = this.actor.get_theme_node().get_padding(St.Side.LEFT);
         let rightPadding = this.actor.get_theme_node().get_padding(St.Side.RIGHT);
 
@@ -311,7 +287,7 @@ function enable() {
         this._rightArrow.opacity = (this._scrollableRight && scrollable) ? 255 : 0;
     };
 
-    
+    injections['SwitcherPopup.SwitcherList._getPreferredWidth'] = SwitcherPopup.SwitcherList.prototype._getPreferredWidth;
     SwitcherPopup.SwitcherList.prototype['_getPreferredWidth'] = function (actor, forHeight, alloc) {
         let [maxChildMin, maxChildNat] = this._maxChildWidth(forHeight);
        
@@ -329,7 +305,7 @@ function enable() {
         //global.log("totalSpacing: " + totalSpacing + " alloc.min_size = alloc.natural_size = this._minSize: " + alloc.min_size);
     };
 
-
+    injections['AltTab.WindowList.highlight'] = AltTab.WindowList.prototype['highlight'];
     AltTab.WindowList.prototype['highlight'] = function(index, justOutline) {
         if (this.finished) {
             return;
@@ -503,6 +479,14 @@ function enable() {
 
 function disable() {
     global.log("Disable is being run");
+    AltTab.WindowIcon.prototype['_init'] = injections['AltTab.WindowIcon._init'];
+    SwitcherPopup.SwitcherList.prototype['_allocate'] = injections['SwitcherPopup.SwitcherList._allocate'];
+    SwitcherPopup.SwitcherList.prototype['_getPreferredHeight'] = injections['SwitcherPopup.SwitcherList._getPreferredHeight'];
+    AltTab.WindowList.prototype['_allocateTop'] = injections['AltTab.WindowList._allocateTop'];
+    SwitcherPopup.SwitcherList.prototype['_allocateTop'] = injections['SwitcherPopup.SwitcherList._allocateTop'];
+    SwitcherPopup.SwitcherList.prototype['_getPreferredWidth'] = injections['SwitcherPopup.SwitcherList._getPreferredWidth'];
+    AltTab.WindowList.prototype['highlight'] = injections['AltTab.WindowList.highlight'];
+
     AltTab.WindowSwitcherPopup.prototype['_init'] = injections['WindowSwitcherPopup._init'];
     AltTab.WindowSwitcherPopup.prototype['_finish'] = injections['WindowSwitcherPopup._finish'];
     AltTab.WindowSwitcherPopup.prototype._keyPressHandler = injections['WindowSwitcherPopup._keyPressHandler'];
