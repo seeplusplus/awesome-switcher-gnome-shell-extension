@@ -1,4 +1,4 @@
-UUID=awesome-switcher@yannik.sembritzki.gmail.com
+UUID=$(shell cat src/metadata.json | python -c "import json,sys;obj=json.load(sys.stdin);print obj['uuid'];")
 SRCDIR=src
 BUILDDIR=build
 FILES=metadata.json *.js stylesheet.css
