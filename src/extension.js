@@ -315,31 +315,11 @@ function enable() {
 
         this._label.set_text(index == -1 ? '' : this.icons[index].label.text);
 
-        /*
-        for (let key in this.icons) {
-            //MetaWindowX11
-            window = this.icons[key].window;
-            //Meta.Rectangle
-            //window.get_outer_rect is not a funciton error
-            //let outerRec = window.get_outer_rect();
-
-            if (key != index) {
-                //window.minimize();
-                //window.make_below();
-                if (window.above) {
-                    global.log("unmake_above:" + window.get_title());
-                    window.unmake_above();
-                }
-
-            }
-
-        }*/
-
         if (this.lastWindowState && this.lastWindowState.minimized) {
             this.icons[this.lastWindowState.index].window.minimize();
         }
         if (this.lastWindowState) {
-            // uncomment next line for live preview
+            // uncomment for live preview
             // this.icons[this.lastWindowState.index].window.unmake_above();
             global.log("unmake_above: " + this.icons[this.lastWindowState.index].window.get_title())
         }
@@ -347,37 +327,17 @@ function enable() {
         this.lastWindowState = [];
         this.lastWindowState.index = index;
         this.lastWindowState.minimized = window.minimized;
-        // if (window.minimized) { caw
-            // window.unminimize(); caw
-        // } caw
+        
+        // uncomment for live preview
+        // if (window.minimized) {
+            // window.unminimize();
+        // }
 
-        // global.log("make_above:" + window.get_title());caw
+        // uncomment for live preview
+        // global.log("make_above:" + window.get_title());
 
-        // window.make_above();caw
-
-        /*
-        let mutterWindow = window.get_compositor_private();
-
-        // copied from _createWindowClone
-        let windowTexture = mutterWindow.get_texture();
-        let [width, height] = windowTexture.get_size();
-        let cloneWindow = new Clutter.Clone({ source: windowTexture,
-            width: width,
-            height: height,
-            x_align: Clutter.ActorAlign.CENTER,
-            y_align: Clutter.ActorAlign.CENTER,
-            // usual hack for the usual bug in ClutterBinLayout...
-            x_expand: true,
-            y_expand: true });
-        cloneWindow.show();
-
-        global.log("=====mutterWindow: " + mutterWindow);
-        global.log("=====windowTexture: " + windowTexture);
-        global.log("=======cloneWindow.get_size(): " + cloneWindow.get_size());
-        global.log("=======" + cloneWindow.get_transformed_position());
-        global.log("===========cloneWindow: " + cloneWindow);
-        */
-
+        // uncomment for live preview
+        // window.make_above();
     };
 
     injections['SwitcherPopup.SwitcherPopup.destroy'] = SwitcherPopup.SwitcherPopup.prototype['destroy'];
