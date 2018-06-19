@@ -12,14 +12,15 @@ const WindowManager = imports.ui.windowManager;
 
 /**
  * @overview
- * AwesomeSwitcher v0.1
- * Yannik Sembritzki <yannik.sembritzki@googlemail.com>
+ * AwesomeSwitcher v0.1.1
+ * Caleb Webber
+ * Originally authored by Yannik Sembritzki
  *
  * This extension adds the following features to alt-tab window switching
  * in gnome:
  * - Grid-Layout with multiple rows of windows instead of only one
  *   horizontally scrollable row
- * - Window Previews (this feature is experimental)
+ * 
  *
  * This extension requires alternate-tab (https://extensions.gnome.org/extension/15/alternatetab/)
  * to be enabled.
@@ -46,14 +47,6 @@ function enable() {
     //[object GjsFileImporter]
     global.log("imports: " + imports);
 
-    // to test this stuff out:
-    /*
-    for i in {1..10}
-    do
-       nemo &
-    done
-    */
-    // to stop: pkill nemo
 
     injections['AltTab.WindowIcon._init'] = AltTab.WindowIcon.prototype['_init'];
     AltTab.WindowIcon.prototype['_init'] = function(window, mode) {

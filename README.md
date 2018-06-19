@@ -1,13 +1,11 @@
-#AwesomeSwitcher v0.1
-##Yannik Sembritzki <yannik.sembritzki@googlemail.com>
+# AwesomeSwitcher v0.1.1
 
-This extension adds the following features to alt-tab window switching
-in gnome:
+## Caleb Webber <https://github.com/seeplusplus>
 
-  - Grid-Layout with multiple rows of windows instead of only one
-  horizontally scrollable row
-  - Window Previews (this feature is experimental)
+This is a fork of AwesomeSwitcher by Yannik with window previews removed.
 
-This extension requires alternate-tab (https://extensions.gnome.org/extension/15/alternatetab/) to be enabled.
+AwesomeSwitcher v0.1 written by Yannik Sembritzki <https://github.com/Yannik>
+
+This extension requires [alternate-tab](https://extensions.gnome.org/extension/15/alternatetab/) to be enabled.
 
 License: CC BY-NC-SA 4.0
