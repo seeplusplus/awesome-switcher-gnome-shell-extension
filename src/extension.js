@@ -339,20 +339,21 @@ function enable() {
             this.icons[this.lastWindowState.index].window.minimize();
         }
         if (this.lastWindowState) {
-            this.icons[this.lastWindowState.index].window.unmake_above();
+            // uncomment next line for live preview
+            // this.icons[this.lastWindowState.index].window.unmake_above();
             global.log("unmake_above: " + this.icons[this.lastWindowState.index].window.get_title())
         }
         let window = this.icons[index].window;
         this.lastWindowState = [];
         this.lastWindowState.index = index;
         this.lastWindowState.minimized = window.minimized;
-        if (window.minimized) {
-            window.unminimize();
-        }
+        // if (window.minimized) { caw
+            // window.unminimize(); caw
+        // } caw
 
-        global.log("make_above:" + window.get_title());
+        // global.log("make_above:" + window.get_title());caw
 
-        window.make_above();
+        // window.make_above();caw
 
         /*
         let mutterWindow = window.get_compositor_private();
