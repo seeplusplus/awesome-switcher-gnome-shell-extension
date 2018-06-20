@@ -7,12 +7,12 @@ const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
-// const SwitcherPopup = imports.ui.switcherPopup;
+const SwitcherPopup = imports.ui.switcherPopup;
 const WindowManager = imports.ui.windowManager;
 
 /**
  * @overview
- * AwesomeSwitcher v0.1.1
+ * AwesomeSwitcher v0.2
  * Caleb Webber
  * Originally authored by Yannik Sembritzki
  *
@@ -335,7 +335,7 @@ function enable() {
 
     injections['SwitcherPopup.SwitcherPopup.destroy'] = SwitcherPopup.SwitcherPopup.prototype['destroy'];
     SwitcherPopup.SwitcherPopup.prototype['destroy'] = function() {
-        if (this._items[this._selectedIndex].window.above) {
+        if ('window' in this._items[this._selectedIndex] && this._items[this._selectedIndex].window.above) {
             this._items[this._selectedIndex].window.unmake_above();
             global.log("[SwitcherPoup.destroy] unmake_above: " + this._items[this._selectedIndex].window.get_title())
         }
@@ -376,7 +376,6 @@ function enable() {
 
     injections['SwitcherPopup.SwitcherPopup._select'] = SwitcherPopup.SwitcherPopup.prototype._select;
     SwitcherPopup.SwitcherPopup.prototype._select = function(num) {
-        global.log("called select with num: " + num);
         return injections['SwitcherPopup.SwitcherPopup._select'].call(this, num);
     };
 
@@ -412,20 +411,12 @@ function enable() {
         }
         return AltTab.maxItemsPerRow();
     };
-    
+
     AltTab.maxItemsPerRow = function() {
         return 6;
     };
 
-    AltTab.WindowList.prototype._itemsPerRow = function() {
-        return AltTab.itemsPerRow();
-    };
-
-    AltTab.WindowSwitcherPopup.prototype._itemsPerRow = function() {
-        return AltTab.itemsPerRow();
-    };
-
-    AltTab.AppSwitcherPopup.prototype._itemsPerRow = function() {
+    SwitcherPopup.SwitcherList.prototype._itemsPerRow = function () {
         return AltTab.itemsPerRow();
     };
     

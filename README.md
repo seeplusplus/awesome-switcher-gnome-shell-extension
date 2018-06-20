@@ -1,4 +1,4 @@
-# AwesomeSwitcher v0.1.1
+# AwesomeSwitcher v0.2
 
 ## Caleb Webber <https://github.com/seeplusplus>
 
