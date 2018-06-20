@@ -7,7 +7,7 @@ const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
-const SwitcherPopup = imports.ui.switcherPopup;
+// const SwitcherPopup = imports.ui.switcherPopup;
 const WindowManager = imports.ui.windowManager;
 
 /**
@@ -412,7 +412,7 @@ function enable() {
         }
         return AltTab.maxItemsPerRow();
     };
-
+    
     AltTab.maxItemsPerRow = function() {
         return 6;
     };
@@ -424,6 +424,11 @@ function enable() {
     AltTab.WindowSwitcherPopup.prototype._itemsPerRow = function() {
         return AltTab.itemsPerRow();
     };
+
+    AltTab.AppSwitcherPopup.prototype._itemsPerRow = function() {
+        return AltTab.itemsPerRow();
+    };
+    
 // Vererbung: 
 // switcherPopup.SwitcherPopup -> [altTab.AppSwitcherPopup, altTab.WindowSwitcherPopup]
 // switcherPopup.SwitcherList -> [altTab.AppSwitcher, altTab.ThumbnailList, altTab.WindowList]

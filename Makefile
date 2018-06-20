@@ -27,3 +27,6 @@ zip: all
 	(cd $(BUILDDIR)/$(UUID); \
          zip -rq $(ABS_BUILDDIR)/$(UUID).zip $(FILES:%=%); \
         );
+
+install: all
+	cp -r $(BUILDDIR)/$(UUID) ~/.local/share/gnome-shell/extensions/
