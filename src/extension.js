@@ -415,7 +415,9 @@ function enable() {
     AltTab.maxItemsPerRow = function() {
         return 6;
     };
-
+    SwitcherPopup.SwitcherPopup.prototype._itemsPerRow = function () {
+        return AltTab.itemsPerRow();
+    }
     SwitcherPopup.SwitcherList.prototype._itemsPerRow = function () {
         return AltTab.itemsPerRow();
     };
