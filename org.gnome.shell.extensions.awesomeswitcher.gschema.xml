@@ -1,0 +1,9 @@
+<schemalist gettext-domain="gnome-shell-extension">
+    <schema id="org.gnome.shell.extensions.awesomeswitcher" path="/org/gnome/shell/extensions/awesomeswitcher/">
+    <key type="i" name="items-per-row">
+      <default>6</default>
+      <summary>Items per row</summary>
+      <description/>
+    </key>
+  </schema>
+</schemalist>
